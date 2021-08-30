@@ -31,8 +31,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "src/sass/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./node_modules/bootstrap/scss"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -103,9 +109,21 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "House-Of-Angular-Recruitment-Task"
+  "defaultProject": "House-Of-Angular-Recruitment-Task",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
