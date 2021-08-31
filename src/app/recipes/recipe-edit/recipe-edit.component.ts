@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {Subscription} from "rxjs";
-import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {Store} from "@ngrx/store";
 import * as fromApp from '../../store/app.reducer'
 import * as RecipesActions from '../store/recipe.action'
 import {map} from "rxjs/operators";
+import {Recipe} from "../../shared/recipe.model";
 
 @Component({
   selector: 'app-recipe-edit',
@@ -14,6 +15,7 @@ import {map} from "rxjs/operators";
 })
 export class RecipeEditComponent implements OnInit {
   id: number;
+  recipeId: string;
   editMode = false;
   recipeForm: FormGroup;
 
@@ -39,16 +41,19 @@ export class RecipeEditComponent implements OnInit {
 
   onSubmit() {
     if (this.editMode) {
-      // this.recipeService.updateRecipe(this.id, this.recipeForm.value);
       this.store.dispatch(
         new RecipesActions.UpdateRecipe({
           index: this.id,
           newRecipe: this.recipeForm.value
         })
       );
+      this.store.dispatch(new RecipesActions.EditRecipes({
+        _id: this.recipeId,
+          ...this.recipeForm.value}
+        ));
     } else {
-      // this.recipeService.addRecipe(this.recipeForm.value);
       this.store.dispatch(new RecipesActions.AddRecipe(this.recipeForm.value));
+      this.store.dispatch(new RecipesActions.CreateRecipes(this.recipeForm.value));
     }
     this.onCancel();
   }
@@ -57,7 +62,7 @@ export class RecipeEditComponent implements OnInit {
     (this.recipeForm.get('ingredients') as FormArray).push(
       new FormGroup({
         name: new FormControl(null, Validators.required),
-        amount: new FormControl(null, [
+        quantity: new FormControl(null, [
           Validators.required,
           Validators.pattern(/^[1-9]+[0-9]*$/)
         ])
@@ -79,11 +84,19 @@ export class RecipeEditComponent implements OnInit {
     }
   }
 
+  minLengthArray = (min: number) => {
+    return (c: AbstractControl): { [p: string]: any } | null => {
+      if (c.value.length >= min)
+        return null;
+      return { MinLengthArray: true};
+    }
+  }
+
   private initForm() {
     let recipeName = '';
-    let recipePreparationTime = 0;
+    let recipePreparationTime = null;
     let recipeDescription = '';
-    let recipeIngredients = new FormArray([]);
+    let recipeIngredients = new FormArray([], [this.minLengthArray(2)]);
 
     if (this.editMode) {
       this.storeSub = this.store
@@ -96,7 +109,8 @@ export class RecipeEditComponent implements OnInit {
           })
         )
         .subscribe((recipe) => {
-          recipeName = recipe!.name
+          this.recipeId = recipe!._id;
+          recipeName = recipe!.name;
           recipePreparationTime = recipe!.preparationTimeInMinutes;
           recipeDescription = recipe!.description;
           if (recipe!['ingredients']) {
@@ -104,7 +118,7 @@ export class RecipeEditComponent implements OnInit {
               recipeIngredients.push(
                 new FormGroup({
                   name: new FormControl(ingredient.name, Validators.required),
-                  amount: new FormControl(ingredient.quantity, [
+                  quantity: new FormControl(ingredient.quantity, [
                     Validators.required,
                     Validators.pattern(/^[1-9]+[0-9]*$/)
                   ])
@@ -116,10 +130,11 @@ export class RecipeEditComponent implements OnInit {
     }
 
     this.recipeForm = new FormGroup({
-      name: new FormControl(recipeName, Validators.required),
-      preparationTime: new FormControl(recipePreparationTime, Validators.required),
-      description: new FormControl(recipeDescription, Validators.required),
+      name: new FormControl(recipeName, [Validators.required, Validators.minLength(3), Validators.maxLength(80)]),
+      preparationTimeInMinutes: new FormControl(recipePreparationTime, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]),
+      description: new FormControl(recipeDescription, [Validators.required, Validators.minLength(15), Validators.maxLength(255)]),
       ingredients: recipeIngredients
     });
   }
 }
+

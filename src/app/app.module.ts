@@ -17,10 +17,15 @@ import * as fromApp from './store/app.reducer'
 import {ReactiveFormsModule} from "@angular/forms";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {environment} from "../environments/environment";
+import {EffectsModule} from "@ngrx/effects";
+import {RecipeEffects} from "./recipes/store/recipe.effects";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {RecipesResolverService} from "./recipes/recipe-resolver.service";
+import {RecipeInterceptorService} from "./recipes/recipe-interceptor.service";
 
 const routes: Routes = [
   {path: '', redirectTo: '/recipes', pathMatch: 'full'},
-  {path: 'recipes', component: RecipesComponent, children: [
+  {path: 'recipes', component: RecipesComponent, children: [ //resolve: [RecipesResolverService], children: [
       {path: '', component: RecipeStartComponent},
       {path: 'new', component: RecipeEditComponent},
       {path: ':id', component: RecipeDetailComponent},
@@ -42,13 +47,15 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     CommonModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot(fromApp.appReducer),
     ReactiveFormsModule,
-    StoreDevtoolsModule.instrument({logOnly:environment.production})
+    StoreDevtoolsModule.instrument({logOnly:environment.production}),
+    EffectsModule.forRoot([RecipeEffects])
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: RecipeInterceptorService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

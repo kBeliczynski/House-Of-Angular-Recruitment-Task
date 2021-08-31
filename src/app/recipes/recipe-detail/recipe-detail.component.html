@@ -13,9 +13,13 @@
         <li
           class="list-group-item"
           *ngFor="let ingredient of recipe.ingredients">
-          {{ ingredient.name }} - {{ ingredient.amount }}
+          {{ ingredient.name }} - {{ ingredient.quantity }}
         </li>
       </ul>
+    </div>
+    <div>
+      <button class="btn btn-danger" (click)="onDeleteRecipe()">delete</button>
+      <button class="btn btn-warning" (click)="onEditRecipe()">edit</button>
     </div>
   </div>
 </div>

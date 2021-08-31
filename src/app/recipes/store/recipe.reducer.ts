@@ -7,12 +7,7 @@ export interface State {
 }
 
 const initialState: State = {
-  recipes: [
-    {name: 'a',
-      preparationTimeInMinutes: 60,
-      description: 'a',
-      ingredients: []}
-  ]
+  recipes: [{"_id":"612ea7e4dc46c203e8b3cbe3","name":"recipe1","preparationTimeInMinutes":11,"description":"desc1","ingredients":[{_id:'',"name":"i1","quantity":11},{_id:'',"name":"i2","quantity":22},{_id:'',"name":"i3","quantity":33}]}]
 };
 
 export function recipeReducer(
@@ -43,7 +38,7 @@ export function recipeReducer(
         ...state,
         recipes: updatedRecipes
       };
-    case RecipesActions.DELETE_RECIPE:
+    case RecipesActions.REMOVE_RECIPE:
       return {
         ...state,
         recipes: state.recipes.filter((recipe, index) => {
