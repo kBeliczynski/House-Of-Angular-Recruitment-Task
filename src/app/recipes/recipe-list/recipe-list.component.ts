@@ -5,6 +5,7 @@ import {Store} from "@ngrx/store";
 import * as fromApp from '../../store/app.reducer'
 import {Subscription} from "rxjs";
 import {map} from "rxjs/operators";
+import * as RecipesActions from '../store/recipe.action'
 
 
 @Component({

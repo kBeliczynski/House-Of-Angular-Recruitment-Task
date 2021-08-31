@@ -9,7 +9,7 @@ export interface State {
 const initialState: State = {
   recipes: [
     {name: 'a',
-      preparationTime: 'a',
+      preparationTimeInMinutes: 60,
       description: 'a',
       ingredients: []}
   ]

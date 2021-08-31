@@ -11,8 +11,8 @@ import {map, switchMap} from "rxjs/operators";
   styleUrls: ['./recipe-detail.component.scss']
 })
 export class RecipeDetailComponent implements OnInit {
-  recipe: any;
-  id: number;
+  recipe: Recipe | any;
+  id: number | any;
 
   constructor(
     private route: ActivatedRoute,

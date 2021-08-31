@@ -14,6 +14,9 @@ import {RouterModule, Routes} from "@angular/router";
 import {CommonModule} from "@angular/common";
 import {StoreModule} from "@ngrx/store";
 import * as fromApp from './store/app.reducer'
+import {ReactiveFormsModule} from "@angular/forms";
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import {environment} from "../environments/environment";
 
 const routes: Routes = [
   {path: '', redirectTo: '/recipes', pathMatch: 'full'},
@@ -42,7 +45,8 @@ const routes: Routes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot(fromApp.appReducer),
-
+    ReactiveFormsModule,
+    StoreDevtoolsModule.instrument({logOnly:environment.production})
   ],
   providers: [],
   bootstrap: [AppComponent]
