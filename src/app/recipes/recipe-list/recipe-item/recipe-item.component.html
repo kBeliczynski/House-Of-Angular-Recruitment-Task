@@ -1,1 +1,13 @@
-<p>recipe-item works!</p>
+<a
+  style="cursor: pointer;"
+  [routerLink]="[index]"
+  routerLinkActive="active"
+  class="list-group-item clearfix">
+  <div class="pull-left">
+    <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
+    <div>
+      <button class="btn btn-danger">delete</button>
+      <button class="btn btn-warning">edit</button>
+    </div>
+  </div>
+</a>

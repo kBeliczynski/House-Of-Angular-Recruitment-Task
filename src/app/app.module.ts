@@ -11,6 +11,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {RecipeStartComponent} from "./recipes/recipe-start/recipe-start.component";
 import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-item.component';
 import {RouterModule, Routes} from "@angular/router";
+import {CommonModule} from "@angular/common";
+import {StoreModule} from "@ngrx/store";
+import * as fromApp from './store/app.reducer'
 
 const routes: Routes = [
   {path: '', redirectTo: '/recipes', pathMatch: 'full'},
@@ -35,8 +38,11 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    StoreModule.forRoot(fromApp.appReducer),
+
   ],
   providers: [],
   bootstrap: [AppComponent]
