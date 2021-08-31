@@ -22,6 +22,7 @@ import {RecipeEffects} from "./recipes/store/recipe.effects";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {RecipesResolverService} from "./recipes/recipe-resolver.service";
 import {RecipeInterceptorService} from "./recipes/recipe-interceptor.service";
+import { ExactHourPipe } from './shared/exact-hour.pipe';
 
 const routes: Routes = [
   {path: '', redirectTo: '/recipes', pathMatch: 'full'},
@@ -42,7 +43,8 @@ const routes: Routes = [
     RecipeListComponent,
     HeaderComponent,
     RecipeStartComponent,
-    RecipeItemComponent
+    RecipeItemComponent,
+    ExactHourPipe
   ],
   imports: [
     BrowserModule,
