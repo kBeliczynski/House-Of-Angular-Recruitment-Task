@@ -24,13 +24,14 @@ import {RecipesResolverService} from "./recipes/recipe-resolver.service";
 import {RecipeInterceptorService} from "./recipes/recipe-interceptor.service";
 import { ExactHourPipe } from './shared/exact-hour.pipe';
 import { FilterPipe } from './shared/filter.pipe';
+import {recipeGuardService} from './recipes/recipe-guard.service'
 
 const routes: Routes = [
   {path: '', redirectTo: '/recipes', pathMatch: 'full'},
   {path: 'recipes', component: RecipesComponent, children: [ //resolve: [RecipesResolverService], children: [
       {path: '', component: RecipeStartComponent},
       {path: 'new', component: RecipeEditComponent},
-      {path: ':id', component: RecipeDetailComponent},
+      {path: ':id', component: RecipeDetailComponent, canActivate:[recipeGuardService]},
       {path: ':id/edit', component: RecipeEditComponent},
     ]}
 ];
@@ -60,7 +61,7 @@ const routes: Routes = [
     StoreDevtoolsModule.instrument({logOnly:environment.production}),
     EffectsModule.forRoot([RecipeEffects])
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: RecipeInterceptorService, multi: true}],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: RecipeInterceptorService, multi: true}, recipeGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

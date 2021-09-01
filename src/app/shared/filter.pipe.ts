@@ -7,7 +7,6 @@ import {Recipe} from "./recipe.model";
 export class FilterPipe implements PipeTransform {
 
   transform(value: any, filterString : string, propName: string): any {
-    console.log(value,filterString,propName);
     if (value.length === 0)
       return value;
     const resultArray = [];
