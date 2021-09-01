@@ -1,0 +1,8 @@
+<script src="recipe-delete-dialog.component.ts"></script><h2 mat-dialog-title>
+ Do you want to delete the recipe?
+</h2>
+
+<mat-dialog-actions [class.justify-content-center]="dialogRef">
+  <button mat-button mat-dialog-close (click)="onDelete()">Yes</button>
+  <button mat-button mat-dialog-close (click)="onClose()">No</button>
+</mat-dialog-actions>

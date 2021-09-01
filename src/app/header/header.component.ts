@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
-import {AuthorDialogComponent} from "./author-dialog/author-dialog.component";
+import {AuthorDialogComponent} from "../material/author-dialog/author-dialog.component";
 
 @Component({
   selector: 'app-header',

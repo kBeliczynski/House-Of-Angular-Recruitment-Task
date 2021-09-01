@@ -4,6 +4,9 @@ import {ActivatedRoute, Router} from "@angular/router";
 import * as RecipesActions from "../../store/recipe.action";
 import {Store} from "@ngrx/store";
 import * as fromApp from "../../../store/app.reducer";
+import {AuthorDialogComponent} from "../../../material/author-dialog/author-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {RecipeDeleteDialogComponent} from "../../../material/recipe-delete-dialog/recipe-delete-dialog.component";
 
 @Component({
   selector: 'app-recipe-item',
@@ -17,7 +20,7 @@ export class RecipeItemComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<fromApp.AppState>) { }
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -26,10 +29,13 @@ export class RecipeItemComponent implements OnInit {
     this.router.navigate([this.index,'edit'], { relativeTo: this.route });
   }
 
-  onDeleteRecipe() {
-    this.store.dispatch(new RecipesActions.DeleteRecipe(this.index));
-    this.store.dispatch(new RecipesActions.RemoveRecipe(this.index));
-    this.router.navigate(['/recipes']);
+    openDialog() {
+    const dialogRef = this.dialog.open(RecipeDeleteDialogComponent, {
+      data: this.index
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
 }

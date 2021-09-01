@@ -26,7 +26,8 @@ import { ExactHourPipe } from './shared/exact-hour.pipe';
 import { FilterPipe } from './shared/filter.pipe';
 import {recipeGuardService} from './recipes/recipe-guard.service'
 import {MatDialogModule} from "@angular/material/dialog";
-import { AuthorDialogComponent } from './header/author-dialog/author-dialog.component';
+import { AuthorDialogComponent } from './material/author-dialog/author-dialog.component';
+import {RecipeDeleteDialogComponent} from "./material/recipe-delete-dialog/recipe-delete-dialog.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/recipes', pathMatch: 'full'},
@@ -50,7 +51,8 @@ const routes: Routes = [
     RecipeItemComponent,
     ExactHourPipe,
     FilterPipe,
-    AuthorDialogComponent
+    AuthorDialogComponent,
+    RecipeDeleteDialogComponent
   ],
   imports: [
     BrowserModule,
