@@ -3,6 +3,6 @@
 </h2>
 
 <mat-dialog-actions [class.justify-content-center]="dialogRef">
-  <button mat-button mat-dialog-close (click)="onDelete()">Yes</button>
-  <button mat-button mat-dialog-close (click)="onClose()">No</button>
+  <button mat-button mat-dialog-close class="btn btn-danger mr-4" (click)="onDelete()">Yes</button>
+  <button mat-button mat-dialog-close class="btn btn-success" (click)="onClose()">No</button>
 </mat-dialog-actions>

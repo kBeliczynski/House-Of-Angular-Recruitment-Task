@@ -7,7 +7,7 @@ export interface State {
 }
 
 const initialState: State = {
-  recipes: [{"_id":"612ea7e4dc46c203e8b3cbe3","name":"recipe1","preparationTimeInMinutes":532,"description":"desc1","ingredients":[{_id:'',"name":"i1","quantity":11},{_id:'',"name":"i2","quantity":22},{_id:'',"name":"i3","quantity":33}]}]
+  recipes: []
 };
 
 export function recipeReducer(

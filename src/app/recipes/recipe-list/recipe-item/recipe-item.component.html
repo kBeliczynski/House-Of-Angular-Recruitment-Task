@@ -1,13 +1,13 @@
-<script src="recipe-item.component.ts"></script><a
-  style="cursor: pointer;"
-  [routerLink]="[index]"
-  routerLinkActive="active"
-  class="list-group-item clearfix">
-  <div class="pull-left">
-    <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
-  </div>
-</a>
-<div>
-  <button mat-raised-button class="btn btn-danger" (click)="openDialog()">delete</button>
-  <button class="btn btn-warning" (click)="onEditRecipe()">edit</button>
+<div class="mb-3">
+  <a
+    style="cursor: pointer;"
+    [routerLink]="[index]"
+    routerLinkActive="active"
+    class="list-group-item clearfix rounded mb-1">
+    <div class="pull-left">
+      <h2 class="list-group-item-heading ">{{ recipe.name }}</h2>
+    </div>
+  </a>
+  <button mat-raised-button class="btn btn-danger ml-5 mr-1" (click)="openDialog()">delete</button>
+  <button class="btn btn-warning mr-5" (click)="onEditRecipe()">edit</button>
 </div>

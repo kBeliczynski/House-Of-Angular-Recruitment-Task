@@ -31,7 +31,7 @@ import {RecipeDeleteDialogComponent} from "./material/recipe-delete-dialog/recip
 
 const routes: Routes = [
   {path: '', redirectTo: '/recipes', pathMatch: 'full'},
-  {path: 'recipes', component: RecipesComponent, children: [ //resolve: [RecipesResolverService], children: [
+  {path: 'recipes', component: RecipesComponent, resolve: [RecipesResolverService], children: [
       {path: '', component: RecipeStartComponent},
       {path: 'new', component: RecipeEditComponent},
       {path: ':id', component: RecipeDetailComponent, canActivate:[recipeGuardService]},

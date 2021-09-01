@@ -1,25 +1,18 @@
-<div class="row">
+<div class="row container-fluid justify-content-center align-items-center ">
   <div class="col-xs-12">
-    <div class="card text-center">
-      <div class="card-header">
-        {{recipe.name}}
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">{{recipe.description}}</h5>
-        <p class="card-text">Preparation time: {{recipe.preparationTimeInMinutes | exactHour}}</p>
-      </div>
-
-      <ul class="list-group">
-        <li
-          class="list-group-item"
+    <div class="jumbotron text-center my-1">
+      <h1>{{recipe.name}}</h1>
+      <hr class="my2">
+      <p>{{recipe.description}}</p>
+      <p>Preparation time: {{recipe.preparationTimeInMinutes | exactHour}}</p>
+      <hr class="my2">
+      <h2>Ingredients:</h2>
+        <p
           *ngFor="let ingredient of recipe.ingredients">
           {{ ingredient.name }} - {{ ingredient.quantity }}
-        </li>
-      </ul>
+        </p>
     </div>
-    <div>
-      <button class="btn btn-danger" (click)="openDialog()">delete</button>
-      <button class="btn btn-warning" (click)="onEditRecipe()">edit</button>
-    </div>
+    <button class="btn btn-danger ml-auto mr-1" (click)="openDialog()">delete</button>
+    <button class="btn btn-warning" (click)="onEditRecipe()">edit</button>
   </div>
 </div>
