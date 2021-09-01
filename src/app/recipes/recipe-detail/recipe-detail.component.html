@@ -6,7 +6,7 @@
       </div>
       <div class="card-body">
         <h5 class="card-title">{{recipe.description}}</h5>
-        <p class="card-text">Preparation time: {{recipe.preparationTimeInMinutes}}</p>
+        <p class="card-text">Preparation time: {{recipe.preparationTimeInMinutes | exactHour}}</p>
       </div>
 
       <ul class="list-group">

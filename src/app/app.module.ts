@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { AppComponent } from './app.component';
 import { RecipesComponent } from './recipes/recipes.component';
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
@@ -14,7 +15,6 @@ import {RouterModule, Routes} from "@angular/router";
 import {CommonModule} from "@angular/common";
 import {StoreModule} from "@ngrx/store";
 import * as fromApp from './store/app.reducer'
-import {ReactiveFormsModule} from "@angular/forms";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {environment} from "../environments/environment";
 import {EffectsModule} from "@ngrx/effects";
@@ -23,6 +23,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {RecipesResolverService} from "./recipes/recipe-resolver.service";
 import {RecipeInterceptorService} from "./recipes/recipe-interceptor.service";
 import { ExactHourPipe } from './shared/exact-hour.pipe';
+import { FilterPipe } from './shared/filter.pipe';
 
 const routes: Routes = [
   {path: '', redirectTo: '/recipes', pathMatch: 'full'},
@@ -44,11 +45,13 @@ const routes: Routes = [
     HeaderComponent,
     RecipeStartComponent,
     RecipeItemComponent,
-    ExactHourPipe
+    ExactHourPipe,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
     CommonModule,
+    FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),

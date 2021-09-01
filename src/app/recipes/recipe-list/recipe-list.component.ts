@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Recipe} from "../../shared/recipe.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Store} from "@ngrx/store";
@@ -16,6 +16,7 @@ import * as RecipesActions from '../store/recipe.action'
 export class RecipeListComponent implements OnInit, OnDestroy {
   recipes: Recipe[] | undefined;
   subscription = new Subscription();
+  recipeFilter: string = '';
 
   constructor(
     private router: Router,
