@@ -12,7 +12,7 @@ import {Recipe} from "./recipe.model";
 
 describe('FilterPipe', ()=>{
 
-  describe('Isolated FlterPipeTest', () => {
+  describe('Isolated FlterPipeTests', () => {
     const pipe = new FilterPipe();
     const recipes : Recipe[] =[
     {
