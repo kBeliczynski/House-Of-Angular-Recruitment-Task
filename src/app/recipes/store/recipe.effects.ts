@@ -9,7 +9,7 @@ import * as fromApp from '../../store/app.reducer';
 import {Observable} from "rxjs";
 
 
-const url = 'https://crudcrud.com/api/5254f5ec9a3a46d489eb4aaaaedf949c';
+const url = 'https://crudcrud.com/api/d4b8e34d40374a3f9494c7c81e28b748';
 
 @Injectable()
 export class RecipeEffects {
