@@ -9,6 +9,8 @@ import * as fromApp from '../../store/app.reducer';
 import {Observable} from "rxjs";
 
 
+const url = 'https://crudcrud.com/api/5254f5ec9a3a46d489eb4aaaaedf949c';
+
 @Injectable()
 export class RecipeEffects {
   fetch$ = createEffect( () => {
@@ -16,7 +18,7 @@ export class RecipeEffects {
       ofType(RecipesActions.FETCH_RECIPES),
       switchMap(() => {
         return this.http.get<Recipe[]>(
-          'https://crudcrud.com/api/f312ef32a3054083ba0645a964e96528/recipes'
+          url+'/recipes'
         );
       }),
       // map(recipes => {
@@ -39,7 +41,7 @@ export class RecipeEffects {
       map( (action: RecipesActions.CreateRecipes) => action.payload),
       switchMap( recipe => {
        return this.http.post(
-          'https://crudcrud.com/api/f312ef32a3054083ba0645a964e96528/recipes',
+          url+'/recipes',
          recipe)
       })
     )
@@ -51,7 +53,7 @@ export class RecipeEffects {
       map( (action: RecipesActions.EditRecipes) => action.payload),
       switchMap( recipe => {
        return this.http.put(
-         'https://crudcrud.com/api/f312ef32a3054083ba0645a964e96528/recipes/'+recipe._id,
+         url+'/recipes/'+recipe._id,
          recipe)
       })
     )
@@ -64,7 +66,7 @@ export class RecipeEffects {
       withLatestFrom(this.store.select("recipes")),
       switchMap( ([index, store]) => {
        return this.http.delete(
-         'https://crudcrud.com/api/f312ef32a3054083ba0645a964e96528/recipes/'+store.recipes[index]._id)
+         url+'/recipes/'+store.recipes[index]._id)
       })
     )
   }, {dispatch: false})
