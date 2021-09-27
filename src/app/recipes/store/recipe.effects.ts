@@ -10,7 +10,7 @@ import {Observable} from "rxjs";
 import { allRecipeActions } from "./recipe.action";
 
 
-const url = 'https://crudcrud.com/api/1753c3a5a2c746158fe878283a4ac32e';
+const url = 'https://crudcrud.com/api/6f14e6cd48534ce3a09bb6a3e0dea201';
 
 @Injectable()
 export class RecipeEffects {

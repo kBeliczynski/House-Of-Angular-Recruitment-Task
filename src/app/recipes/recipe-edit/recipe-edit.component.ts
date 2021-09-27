@@ -52,10 +52,9 @@ export class RecipeEditComponent implements OnInit {
           ...this.recipeForm.value}
         ));
     } else {
-      let recipe = this.recipeForm.value;
-      this.store.dispatch(RecipesActions.allRecipeActions.AddRecipe({ recipe }));
+      this.store.dispatch(RecipesActions.allRecipeActions.AddRecipe({ recipe: this.recipeForm.value }));
       console.log("jesetem w edit component",this.recipeForm.value);
-      this.store.dispatch(RecipesActions.allRecipeActions.CreateRecipes({ recipe }));
+      this.store.dispatch(RecipesActions.allRecipeActions.CreateRecipes({ recipe: this.recipeForm.value }));
     }
     this.onCancel();
   }

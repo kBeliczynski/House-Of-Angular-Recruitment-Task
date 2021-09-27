@@ -52,7 +52,7 @@ describe('RecipeDetailComponent', () => {
             }
           ]
         };
-       console.log(component);
+       // console.log(component);
       // //fixture.detectChanges();
       // component.ngOnInit();
       // component.onEditRecipe();

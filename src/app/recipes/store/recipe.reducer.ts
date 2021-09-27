@@ -26,6 +26,8 @@ export const recipeReducer = createReducer(
     }
   }),
   on( allRecipeActions.UpdateRecipe, (state, { index, newRecipe }) => {
+    if(!state.recipes[index])
+      return { ...state};
     const updatedRecipe = {
         ...state.recipes[index],
         ...newRecipe
