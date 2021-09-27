@@ -5,6 +5,6 @@ export interface AppState {
   recipes: fromRecipes.State;
 }
 
-export const appReducer: ActionReducerMap<AppState, any> = {
+export const appReducer: ActionReducerMap<AppState> = {
   recipes: fromRecipes.recipeReducer
 };

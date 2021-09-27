@@ -7,9 +7,10 @@ import {HttpClient} from "@angular/common/http";
 import {Store} from "@ngrx/store";
 import * as fromApp from '../../store/app.reducer';
 import {Observable} from "rxjs";
+import { allRecipeActions } from "./recipe.action";
 
 
-const url = 'https://crudcrud.com/api/d4b8e34d40374a3f9494c7c81e28b748';
+const url = 'https://crudcrud.com/api/1753c3a5a2c746158fe878283a4ac32e';
 
 @Injectable()
 export class RecipeEffects {
@@ -30,16 +31,15 @@ export class RecipeEffects {
       //   });
       // }),
       map(recipes => {
-        return new RecipesActions.SetRecipes(recipes);
+        return allRecipeActions.SetRecipes({recipes});
       })
     )
   })
 
   create$ = createEffect( () => {
     return this.actions$.pipe(
-      ofType(RecipesActions.CREATE_RECIPES),
-      map( (action: RecipesActions.CreateRecipes) => action.payload),
-      switchMap( recipe => {
+      ofType(RecipesActions.allRecipeActions.CreateRecipes),
+      switchMap( ({recipe}) => {
        return this.http.post(
           url+'/recipes',
          recipe)
@@ -49,9 +49,8 @@ export class RecipeEffects {
 
   edit$ = createEffect( () => {
     return this.actions$.pipe(
-      ofType(RecipesActions.EDIT_RECIPES),
-      map( (action: RecipesActions.EditRecipes) => action.payload),
-      switchMap( recipe => {
+      ofType(RecipesActions.allRecipeActions.EditRecipes),
+      switchMap(({recipe}) => {
        return this.http.put(
          url+'/recipes/'+recipe._id,
          recipe)
@@ -61,12 +60,11 @@ export class RecipeEffects {
 
   delete$ = createEffect( () => {
     return this.actions$.pipe(
-      ofType(RecipesActions.DELETE_RECIPES),
-      map( (action: RecipesActions.DeleteRecipe) => action.payload),
+      ofType(RecipesActions.allRecipeActions.DeleteRecipe),
       withLatestFrom(this.store.select("recipes")),
-      switchMap( ([index, store]) => {
+      switchMap( ([{num}, store]) => {
        return this.http.delete(
-         url+'/recipes/'+store.recipes[index]._id)
+         url+'/recipes/'+store.recipes[num]._id)
       })
     )
   }, {dispatch: false})

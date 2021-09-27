@@ -21,7 +21,7 @@ export class RecipesResolverService implements Resolve<Recipe[]> {
       map( state => state.recipes),
       switchMap(recipes => {
         if (recipes.length === 0) {
-          this.store.dispatch(new RecipesActions.FetchRecipes());
+          this.store.dispatch(RecipesActions.allRecipeActions.FetchRecipes());
           return this.actions$.pipe(
             ofType(RecipesActions.SET_RECIPES),
             take(1)

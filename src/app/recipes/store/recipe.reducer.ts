@@ -11,7 +11,7 @@ export const initialState: State = {
   recipes: []
 };
 
-const recipeReducer = createReducer(
+export const recipeReducer = createReducer(
   initialState,
   on( allRecipeActions.AddRecipe, (state, { recipe }) => {
     return {
@@ -47,6 +47,6 @@ const recipeReducer = createReducer(
   })
 );
 
-export function reducer(state: State, action: Action) {
-  return recipeReducer(state, action);
-}
+// export function reducer(state: State, action: Action) {
+//   return recipeReducer(state, action);
+// }

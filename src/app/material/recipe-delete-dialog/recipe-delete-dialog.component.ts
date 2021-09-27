@@ -28,8 +28,9 @@ export class RecipeDeleteDialogComponent implements OnInit {
   }
 
   onDelete() {
-      this.store.dispatch(new RecipesActions.DeleteRecipe(this.data));
-      this.store.dispatch(new RecipesActions.RemoveRecipe(this.data));
+      let num: number = this.data;
+      this.store.dispatch(RecipesActions.allRecipeActions.DeleteRecipe({num}));
+      this.store.dispatch(RecipesActions.allRecipeActions.RemoveRecipe({num}));
       this.router.navigate(['/recipes']);
   }
 }

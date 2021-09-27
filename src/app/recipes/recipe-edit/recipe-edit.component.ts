@@ -42,18 +42,20 @@ export class RecipeEditComponent implements OnInit {
   onSubmit() {
     if (this.editMode) {
       this.store.dispatch(
-        new RecipesActions.UpdateRecipe({
+        RecipesActions.allRecipeActions.UpdateRecipe({
           index: this.id,
           newRecipe: this.recipeForm.value
         })
       );
-      this.store.dispatch(new RecipesActions.EditRecipes({
+      this.store.dispatch(RecipesActions.allRecipeActions.EditRecipes({
         _id: this.recipeId,
           ...this.recipeForm.value}
         ));
     } else {
-      this.store.dispatch(new RecipesActions.AddRecipe(this.recipeForm.value));
-      this.store.dispatch(new RecipesActions.CreateRecipes(this.recipeForm.value));
+      let recipe = this.recipeForm.value;
+      this.store.dispatch(RecipesActions.allRecipeActions.AddRecipe({ recipe }));
+      console.log("jesetem w edit component",this.recipeForm.value);
+      this.store.dispatch(RecipesActions.allRecipeActions.CreateRecipes({ recipe }));
     }
     this.onCancel();
   }
