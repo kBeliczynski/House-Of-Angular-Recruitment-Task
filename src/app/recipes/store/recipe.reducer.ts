@@ -1,6 +1,7 @@
 import {Recipe} from "../../shared/recipe.model";
-import {createReducer} from "@ngrx/store";
+import {Action, createReducer, on} from "@ngrx/store";
 import * as RecipesActions from './recipe.action';
+import { allRecipeActions } from "./recipe.action";
 
 export interface State {
   recipes: Recipe[];
@@ -10,42 +11,42 @@ export const initialState: State = {
   recipes: []
 };
 
-export function recipeReducer(
-  state = initialState,
-  action: RecipesActions.RecipesActions
-) {
-  switch (action.type) {
-    case RecipesActions.SET_RECIPES:
-      return {
-        ...state,
-        recipes: [...action.payload]
+const recipeReducer = createReducer(
+  initialState,
+  on( allRecipeActions.AddRecipe, (state, { recipe }) => {
+    return {
+      ...state,
+      recipes: [...state.recipes, recipe]
+    }
+  }),
+  on( allRecipeActions.SetRecipes, (state, { recipes }) => {
+    return {
+      ...state,
+      recipes: [...recipes]
+    }
+  }),
+  on( allRecipeActions.UpdateRecipe, (state, { index, newRecipe }) => {
+    const updatedRecipe = {
+        ...state.recipes[index],
+        ...newRecipe
       };
-    case RecipesActions.ADD_RECIPE:
-      return {
-        ...state,
-        recipes: [...state.recipes, action.payload]
-      };
-    case RecipesActions.UPDATE_RECIPE:
-      const updatedRecipe = {
-        ...state.recipes[action.payload.index],
-        ...action.payload.newRecipe
-      };
-
       const updatedRecipes = [...state.recipes];
-      updatedRecipes[action.payload.index] = updatedRecipe;
-
-      return {
-        ...state,
-        recipes: updatedRecipes
-      };
-    case RecipesActions.REMOVE_RECIPE:
-      return {
-        ...state,
-        recipes: state.recipes.filter((recipe, index) => {
-          return index !== action.payload;
+      updatedRecipes[index] = updatedRecipe;
+    return {
+      ...state,
+      recipes: updatedRecipes
+    }
+  }),
+  on( allRecipeActions.RemoveRecipe, (state, { num } ) => {
+    return{
+      ...state,
+      recipes: state.recipes.filter((recipe, index) => {
+          return index !== num;
         })
-      };
-    default:
-      return state;
-  }
+    }
+  })
+);
+
+export function reducer(state: State, action: Action) {
+  return recipeReducer(state, action);
 }
